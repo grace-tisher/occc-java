@@ -1,0 +1,68 @@
+/**
+ * Author:		Grace Tisher
+ * Date:		08/19/22
+ * File:		Assignment1.java
+ * Description:	Generate stock information from user input.
+ */
+import java.util.Scanner;
+public class Assignment1 
+{
+	public static void main(String args[]) 
+	{		
+		Scanner input = new Scanner(System.in);
+		
+		//user enters their money available to invest
+		System.out.print("Welcome to the Stock Picker App!\n\n");
+		System.out.print("Enter the total amount of money you are willing to invest: ");
+		double availableMoney = input.nextDouble();
+		
+		Scanner keyboard = new Scanner(System.in);
+		
+		//user enters the stock ticker
+		System.out.print("Enter the stock ticker: ");
+		String stockTicker = keyboard.nextLine(); 
+		
+		//check that the stock ticker is not over 5 characters long
+		while (stockTicker.length() > 5)
+		{
+			System.out.print("Invalid input. Try again.\n");
+			System.out.print("Enter the stock ticker: ");
+			stockTicker = keyboard.nextLine(); 
+		}
+		
+		//user enters the stock price
+		System.out.print("Enter the price: ");
+		double price = input.nextDouble();
+		
+		//check that the stock price is above 1 cent
+		while (price < 0.01)
+		{
+			System.out.print("Invalid input. Try again.\n");
+			System.out.print("Enter the price: ");
+			price = input.nextDouble();
+		}
+		
+		//user enters the P/E ratio
+		System.out.print("Enter the P/E Ratio: ");
+		double ratio = input.nextDouble();
+		
+		//calculate the number of shares the user can buy
+		int shares = (int)(availableMoney/price);
+
+		//display results
+		System.out.print("\nBelow are your results: \n\n");
+		
+		System.out.print("Stock: " + stockTicker + "\n");
+		System.out.print("Price: $" + price + "\n");
+		System.out.print("P/E Ratio: " + ratio + "\n");
+	
+		//give a warning message if the P/E is over 60
+		if (ratio > 60)
+			{
+				System.out.print("WARNING: This company may be overvalued!\n");
+			}
+		
+		System.out.print("Number of shares able to purchase: " + shares);
+	}
+
+}

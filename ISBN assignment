@@ -1,0 +1,98 @@
+/**
+ * Author:		Grace Tisher
+ * Date:		08/26/22
+ * File:		AssignmentISBN.java
+ * Description:	Calculate the ISBN checksum and create an inventory list based on user input.
+ */
+import java.util.Scanner;
+public class AssignmentISBN 
+{
+		public static void main(String args[]) 
+		{
+			Scanner input = new Scanner(System.in);
+			
+			//initialize the variables for the inventory display
+			int returned = 0;
+			int checkout = 0;
+			int totalBooks = 0;
+			
+			//ask the user for a 12 digit ISBN number
+			System.out.print("Welcome to the Daily Book Inventory Program!\n");
+			
+			//start looping the program here if the user decides to continue inventory
+			while (true)
+			{
+				System.out.print("\nEnter the first 12 digits of an ISBN-13 as a String: ");
+				String isbn = input.next();
+				
+				//check to see that the ISBN number is 12 digits
+				while (isbn.length() != 12) 
+				{
+					System.out.print("Invalid ISBN-13 number! Try again.\n");
+					System.out.print("Enter the first 12 digits of an ISBN-13 as a String: ");
+					isbn = input.next();
+				}
+				
+				//get the value for each digit of the ISBN number
+				int sum = 0;
+				for (int i=0; i < 12; i++)
+				{
+					char digitCharacter = isbn.charAt(i);
+					int digit = Character.getNumericValue(digitCharacter);
+					
+					//if the number is even, multiply it by 3 and add it to the sum...
+					if ((i+1) % 2 == 0) 
+					{
+						sum += 3*digit;
+					}
+					//...otherwise just add it to the sum
+					else
+					{
+						sum += digit;
+					}
+				}
+				
+				//calculate the checksum
+				//use mod 10 to replace a checksum of '10' with '0'
+				int checksum = (10 - sum % 10) % 10;
+				System.out.print("The ISBN-13 number is " + isbn + checksum);
+				
+				//check if the book is being returned or checked out
+				System.out.print("\n\nEnter 'R' for return or 'C' for check out: ");
+				String returnOrCheckout = input.next();
+				
+				//increment the return and checkout counters respectively 
+				if (returnOrCheckout.equals("R"))
+				{
+					returned++;
+					totalBooks++;
+				}
+				else 
+				{
+					checkout++;
+					totalBooks++;
+				}
+				
+				//display the inventory
+				System.out.print("\nDaily Book Inventory!\n");
+				System.out.print("Number of books returned:" + returned + "\n");
+				System.out.print("Number of books checked out:" + checkout + "\n");
+				System.out.print("Number of books processed:" + totalBooks + "\n");
+				
+				//ask the user if they want to continue
+				System.out.print("\nEnter 'Y' to continue, 'N' to quit: ");
+				String continueInventory = input.next();
+				
+				//if the user says no, break out of the loop
+				if (continueInventory.equals("N"))
+				{
+					break;
+				}
+			}	
+		//display the final inventory
+		System.out.print("\nDaily Book Inventory!\n");
+		System.out.print("Number of books returned:" + returned + "\n");
+		System.out.print("Number of books checked out:" + checkout + "\n");
+		System.out.print("Number of books processed:" + totalBooks + "\n");
+	}
+}
